@@ -1,3 +1,74 @@
-...
-# 加载分类商品信息逻辑：
-- 点击某一种分类，将分类的id传递到后台
+# 1、Servlet抽取
+### 1.1 Servlet抽取的目的
+
+在下项目之前，首先要进行Servlet的抽取工作，因为如果还是按照以前学习Servlet的时候的方式来写，那么每一个功能都要对应一个Servlet（用户注册，用户登录...），这样会导致Servlet很多，因此我们应该对servlet进行抽取，使每一类功能对应一个Servlet,如用户的所有方法共用一个servlet，商品共用一个servlet，订单再共用一个servlet......
+### 1.2 Servlet抽取的方法
+
+首先，在Servlet内部有一个方法 service ，通过看它的源码，我们会发现，它主要是在获取前端请求之前判断前端是通过什么方法发起请求（get、post...），然后再调用对应的方法（doGet、doPost...）处理请求，我们也可以模拟这种方法，因为前台要请求一个类的时候是通过这个类的urlPatterns 来请求到这个类，请求到这个类之后，会先去执行它的service方法，这时候我们覆写它的service方法，然后再在请求的url中添加一个参数method=“方法名”，在service方法中我们获取对应的url中的method的值，然后通过反射调用对应的方法，说的可能不太清楚，下面画图说明：
+![image](https://github.com/feihhh/store/raw/master/img4readme/servletHandle.png)
+最后，我们在要执行的具体方法中，执行完具体的业务，返回一个字符串，这个字符串就是要跳转的网页（或者说是链接），然后在MyServlet中获取方法返回值，统一跳转页面。
+
+# 2、项目模块
+### 2.1 IndexServlet    ---  加载首页的相关操作
+
+由于上面说了要进行Servlet抽取，所以要想访问首页，也必须要写一个参数method，例如method=index（http://localhost:8080/store/index?method=index ），然后在index方法中跳转到首页，但是这用操作太麻烦了，我们想的是希望访问首页的时候不输入method=？就可以到达首页，此时，我们可以在覆写的service方法中判断，如果url中的参数method为空，就让它等于index，这样只要没有输入method（http://localhost:8080/store/index ），就跳转到首页，也可以保证代码的健壮性，避免出现空指针异常。
+其次，在上面的首页中可以看到，加载首页的时候同时要加载最新商品和热门商品，这时需要调用底层的相关业务查询，然后将查询的结果放在requset域对象中，具体流程如下图：
+![image](https://github.com/feihhh/store/raw/master/img4readme/index.png)
+
+### 2.2 UserServlet
+
+#### 2.2.1 登录模块：
+
+![image](https://github.com/feihhh/JavaWeb-/raw/master/img4Readme/login.png)
+
+#### 2.2.2 注册模块：
+
+![image](https://github.com/feihhh/store/raw/master/img4readme/regist.png)
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20190724183159506.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FfX0JfX0NfXw==,size_16,color_FFFFFF,t_70)
+
+#### 2.2.3 激活模块：
+
+请求的url:http://localhost:8080/store/user?method=activeUser&code=8728533DDBFE45FE8344A4A3A3C21F23
+
+其中 user?method=activeUser 表示请求到UserServlet类里面的activeUser方法，code表是的是激活码（是一个随机不重复的字符串）
+
+激活逻辑：
+
+- 首先，通过url获取激活码
+- 根据激活码获取用户信息
+  - 如果用户信息为空，提示不存在该用户
+  - 如果不为空，继续
+- 判断用户状态是否已经激活了，如果已经激活，提示用户，否则继续
+- 将数据库中的用户状态设置为激活状态，将激活码设置为空（因为激活码只会使用这一次）
+- 激活成功，提示用户，可以登录了，并提供登录的超链接
+
+![image](https://github.com/feihhh/store/raw/master/img4readme/active.png)
+
+#### 2.2.4 退出模块
+
+将session中存储的用户信息删除，跳转到首页，在首页将用户登录状态变为未登录状态
+
+未登录：
+
+![image](https://github.com/feihhh/store/raw/master/img4readme/exitStatus.png)
+
+登录之后：
+
+![image](https://github.com/feihhh/store/raw/master/img4readme/loginStatus.png)
+
+### 2.3 ProductServlet
+
+2.3.1 通过商品pid查询商品
+
+2.3.1 通过页面和分类cid查询商品
+
+以上者两部分流程类似，如下如：
+
+![image](https://github.com/feihhh/store/raw/master/img4readme/product.png)
+
+## 2.4 CategoryServlet
+
+通过cid查询商品
+
+流程和product的类似，调用底层对应的业务方法，最后将结果展示在界面
