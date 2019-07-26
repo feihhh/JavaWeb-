@@ -23,9 +23,7 @@
 
 #### 2.2.2 注册模块：
 
-![image](https://github.com/feihhh/store/raw/master/img4readme/regist.png)
-
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190724183159506.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FfX0JfX0NfXw==,size_16,color_FFFFFF,t_70)
+![image](https://github.com/feihhh/JavaWeb-/raw/master/img4Readme/regist.png)
 
 #### 2.2.3 激活模块：
 
@@ -43,7 +41,7 @@
 - 将数据库中的用户状态设置为激活状态，将激活码设置为空（因为激活码只会使用这一次）
 - 激活成功，提示用户，可以登录了，并提供登录的超链接
 
-![image](https://github.com/feihhh/store/raw/master/img4readme/active.png)
+![image](https://github.com/feihhh/JavaWeb-/raw/master/img4Readme/active.PNG)
 
 #### 2.2.4 退出模块
 
@@ -51,11 +49,11 @@
 
 未登录：
 
-![image](https://github.com/feihhh/store/raw/master/img4readme/exitStatus.png)
+![image](https://github.com/feihhh/JavaWeb-/raw/master/img4Readme/exitStatus.png)
 
 登录之后：
 
-![image](https://github.com/feihhh/store/raw/master/img4readme/loginStatus.png)
+![image](https://github.com/feihhh/JavaWeb-/raw/master/img4Readme/loginStatus.PNG)
 
 ### 2.3 ProductServlet
 
@@ -65,10 +63,11 @@
 
 以上者两部分流程类似，如下如：
 
-![image](https://github.com/feihhh/store/raw/master/img4readme/product.png)
+![image](https://github.com/feihhh/JavaWeb-/raw/master/img4Readme/product.png)
 
 ## 2.4 CategoryServlet
 
 通过cid查询商品
 
 流程和product的类似，调用底层对应的业务方法，最后将结果展示在界面
+
