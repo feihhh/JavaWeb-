@@ -1,4 +1,25 @@
+这是一个简单的电商系统的部分功能的实现，下面是运行结果：
+
+![image](https://github.com/feihhh/store/raw/master/img4readme/run1.png)
+
+![image](https://github.com/feihhh/store/raw/master/img4readme/run2.png)
+
+![image](https://github.com/feihhh/store/raw/master/img4readme/run3.png)
+
+![image](https://github.com/feihhh/store/raw/master/img4readme/run4.png)
+
+![image](https://github.com/feihhh/store/raw/master/img4readme/run5.png)
+
+![image](https://github.com/feihhh/store/raw/master/img4readme/run6.png)
+
+![image](https://github.com/feihhh/store/raw/master/img4readme/run7.png)
+
+![image](https://github.com/feihhh/store/raw/master/img4readme/run8.png)
+
+![image](https://github.com/feihhh/store/raw/master/img4readme/run9.png)
+
 # 1、Servlet抽取
+
 ### 1.1 Servlet抽取的目的
 
 在下项目之前，首先要进行Servlet的抽取工作，因为如果还是按照以前学习Servlet的时候的方式来写，那么每一个功能都要对应一个Servlet（用户注册，用户登录...），这样会导致Servlet很多，因此我们应该对servlet进行抽取，使每一类功能对应一个Servlet,如用户的所有方法共用一个servlet，商品共用一个servlet，订单再共用一个servlet......
