@@ -1,22 +1,24 @@
 这是一个简单的电商系统的部分功能的实现，下面是运行结果：
 
-![image](https://github.com/feihhh/JavaWeb-/raw/master/img4readme/run1.png)
+![image](https://github.com/feihhh/JavaWeb-/raw/master/img4Readme/run1.png)
 
-![image](https://github.com/feihhh/JavaWeb-/raw/master/img4readme/run2.png)
+![image](https://github.com/feihhh/JavaWeb-/raw/master/img4Readme/run2.png)
 
-![image](https://github.com/feihhh/JavaWeb-/raw/master/img4readme/run3.png)
+![image](https://github.com/feihhh/JavaWeb-/raw/master/img4Readme/run3.png)
 
-![image](https://github.com/feihhh/JavaWeb-/raw/master/img4readme/run4.png)
+![image](https://github.com/feihhh/JavaWeb-/raw/master/img4Readme/run4.png)
 
-![image](https://github.com/feihhh/JavaWeb-/raw/master/img4readme/run5.png)
 
-![image](https://github.com/feihhh/JavaWeb-/raw/master/img4readme/run6.png)
 
-![image](https://github.com/feihhh/JavaWeb-/raw/master/img4readme/run7.png)
+![image](https://github.com/feihhh/JavaWeb-/raw/master/img4Readme/run5.png)
 
-![image](https://github.com/feihhh/JavaWeb-/raw/master/img4readme/run8.png)
+![image](https://github.com/feihhh/JavaWeb-/raw/master/img4Readme/run6.png)
 
-![image](https://github.com/feihhh/JavaWeb-/raw/master/img4readme/run9.png)
+![image](https://github.com/feihhh/JavaWeb-/raw/master/img4Readme/run7.png)
+
+![image](https://github.com/feihhh/JavaWeb-/raw/master/img4Readme/run8.png)
+
+![image](https://github.com/feihhh/JavaWeb-/raw/master/img4Readme/run9.png)
 
 # 1、Servlet抽取
 
@@ -26,7 +28,9 @@
 ### 1.2 Servlet抽取的方法
 
 首先，在Servlet内部有一个方法 service ，通过看它的源码，我们会发现，它主要是在获取前端请求之前判断前端是通过什么方法发起请求（get、post...），然后再调用对应的方法（doGet、doPost...）处理请求，我们也可以模拟这种方法，因为前台要请求一个类的时候是通过这个类的urlPatterns 来请求到这个类，请求到这个类之后，会先去执行它的service方法，这时候我们覆写它的service方法，然后再在请求的url中添加一个参数method=“方法名”，在service方法中我们获取对应的url中的method的值，然后通过反射调用对应的方法，说的可能不太清楚，下面画图说明：
-![image](https://github.com/feihhh/store/raw/master/img4readme/servletHandle.png)
+
+![image](https://github.com/feihhh/JavaWeb-/raw/master/img4Readme/servletHandle.png)
+
 最后，我们在要执行的具体方法中，执行完具体的业务，返回一个字符串，这个字符串就是要跳转的网页（或者说是链接），然后在MyServlet中获取方法返回值，统一跳转页面。
 
 # 2、项目模块
@@ -34,7 +38,8 @@
 
 由于上面说了要进行Servlet抽取，所以要想访问首页，也必须要写一个参数method，例如method=index（http://localhost:8080/store/index?method=index ），然后在index方法中跳转到首页，但是这用操作太麻烦了，我们想的是希望访问首页的时候不输入method=？就可以到达首页，此时，我们可以在覆写的service方法中判断，如果url中的参数method为空，就让它等于index，这样只要没有输入method（http://localhost:8080/store/index ），就跳转到首页，也可以保证代码的健壮性，避免出现空指针异常。
 其次，在上面的首页中可以看到，加载首页的时候同时要加载最新商品和热门商品，这时需要调用底层的相关业务查询，然后将查询的结果放在requset域对象中，具体流程如下图：
-![image](https://github.com/feihhh/JavaWeb-/raw/master/img4readme/index.png)
+
+![image](https://github.com/feihhh/JavaWeb-/raw/master/img4Readme/index.png)
 
 ### 2.2 UserServlet
 
