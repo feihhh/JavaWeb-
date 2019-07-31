@@ -22,8 +22,7 @@ public class UserServlet extends BaseServlet {
     /**
      * 跳转到注册界面
      */
-    public String registUI (HttpServletRequest request, HttpServletResponse response)
-    {
+    public String registUI (HttpServletRequest request, HttpServletResponse response) {
         return "/jsp/register.jsp";
     }
 
@@ -163,13 +162,9 @@ public class UserServlet extends BaseServlet {
             return "jsp/login.jsp";
         }
 
-        /**
-         * 登录之后 将登陆状态设置为true 在界面判断如果登陆了就将
-         */
+
         // 登录之后将当前用户存到session中
         request.getSession().setAttribute("loginUser", user);
-        // 将状态设置为登陆状态
-        request.setAttribute("loginState", "Yes");
         return "/jsp/index.jsp" ;
     }
 
@@ -182,7 +177,7 @@ public class UserServlet extends BaseServlet {
      */
     public String userExit(HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        request.setAttribute("loginState", null);
+        request.getSession().setAttribute("loginUser", null);
         return "/jsp/index.jsp" ;
     }
 

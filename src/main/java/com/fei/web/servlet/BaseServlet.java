@@ -14,7 +14,6 @@ public class BaseServlet extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             // 获取子类的class对象
-
             Class clazz = this.getClass();
             // 通过url获取要执行的方法名称
             String method = req.getParameter("method");

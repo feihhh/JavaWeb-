@@ -24,7 +24,6 @@ public class Product implements Serializable {
     // 是不是最新商品 0表示是，1表示不是
     private int pflag ;
     // 对应数据库字段cid  是一个外键
-    private String cid ;
     private Category category ;
 
     public Product() {
@@ -122,16 +121,7 @@ public class Product implements Serializable {
                 ", is_hot=" + is_hot +
                 ", pdexc='" + pdexc + '\'' +
                 ", pflag=" + pflag +
-                ", cid='" + cid + '\'' +
                 ", category=" + category +
                 '}';
-    }
-
-    public String getCid() {
-        return cid;
-    }
-
-    public void setCid(String cid) {
-        this.cid = cid;
     }
 }

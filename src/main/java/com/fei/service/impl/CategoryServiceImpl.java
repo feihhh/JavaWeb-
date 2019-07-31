@@ -63,12 +63,19 @@ public class CategoryServiceImpl implements ICategoryService {
            // 如果为空
             //从数据库中查
             list = categoryDao.findAll();
+//            System.out.println("从数据库中获取值...");
             //将数据存放到缓存中
             cache.put(new Element("clist", list));
         }else {
             // 如果不为空 直接从缓存中获取
             list = (List<Category>) element.getObjectValue();
+//            System.out.println("从缓存中获取值...");
         }
         return list;
+    }
+
+    @Override
+    public Category findCategoryByCid(String cid) throws Exception {
+        return categoryDao.findCateByCid(cid);
     }
 }

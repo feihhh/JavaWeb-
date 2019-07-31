@@ -1,22 +1,18 @@
 package com.fei.web.servlet;
 
-import com.fei.domain.Category;
 import com.fei.domain.Product;
-import com.fei.service.ICategoryService;
 import com.fei.service.IProductService;
-import com.fei.service.impl.CategoryServiceImpl;
-import com.fei.service.impl.ProDuctServiceImpl;
+import com.fei.service.impl.ProductServiceImpl;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
 @WebServlet(name = "indexServlet", urlPatterns = "/index")
 public class IndexServlet extends BaseServlet {
 
-    IProductService pService = new ProDuctServiceImpl();
+    IProductService pService = new ProductServiceImpl();
 
     public String index (HttpServletRequest request, HttpServletResponse response) throws Exception {
 

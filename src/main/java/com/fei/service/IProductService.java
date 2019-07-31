@@ -18,4 +18,7 @@ public interface IProductService {
 
     //查询最新商品
     List<Product> findNewPro() throws Exception;
+
+    PageBean<Product> findProByName(String proName, int pageNum) throws Exception;
+
 }

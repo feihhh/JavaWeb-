@@ -75,5 +75,18 @@ public class ProductDaoImpl implements IProductDao {
         String sql = "select * from product where pflag = 0 limit 9" ;
         return qr.query(sql, new BeanListHandler<Product>(Product.class));
     }
+
+    @Override
+    public List<Product> findProByName(PageBean bean, String proName) throws Exception {
+        String sql = "select * from product where pname like ? order by is_hot desc limit ?, ?";
+        return qr.query(sql, new BeanListHandler<Product>(Product.class), "%"+proName+"%" , (bean
+                .getCurPage()-1)*bean.getCurPageNum(), bean.getCurPageNum());
+    }
+
+    @Override
+    public int proCountByName(String name) throws Exception {
+        String sql = "select count(*) from product where pname like ?" ;
+        return  ((Long)qr.query(sql, new ScalarHandler<>(), "%"+name+"%")).intValue();
+    }
 }
 

@@ -24,4 +24,8 @@ public interface IProductDao {
     List<Product> findHotPro() throws Exception;
 
     List<Product> findNewPro() throws Exception;
+
+    List<Product> findProByName(PageBean bean, String proName) throws Exception;
+
+    int proCountByName(String name) throws Exception ;
 }

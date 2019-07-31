@@ -11,11 +11,9 @@ import com.fei.service.IProductService;
 
 import java.util.List;
 
-public class ProDuctServiceImpl implements IProductService {
+public class ProductServiceImpl implements IProductService {
 
     private IProductDao pDao = new ProductDaoImpl();
-
-    private ICategoryDao cDao = new CategoryDaoImpl();
 
     /**
      * 通过页数查询商品
@@ -42,10 +40,6 @@ public class ProDuctServiceImpl implements IProductService {
     @Override
     public Product findProByPid(String pid) throws Exception {
         Product product = pDao.findProByPid(pid);
-        if (product != null && product.getCid() != null){
-            Category category = cDao.findCateByCid(product.getCid());
-            product.setCategory(category);
-        }
         return product;
     }
 
@@ -67,5 +61,20 @@ public class ProDuctServiceImpl implements IProductService {
     @Override
     public List<Product> findNewPro() throws Exception{
         return pDao.findNewPro();
+    }
+
+    @Override
+    public PageBean<Product> findProByName(String proName, int pageNum) throws Exception {
+        PageBean<Product> bean = new PageBean<>();
+        bean.setCurPage(pageNum);
+        bean.setCurPageNum(12);
+        bean.setTotalNum(pDao.proCountByName(proName));
+        bean.setTotalPage((int)Math.ceil(bean.getTotalNum()*1.0 / bean.getCurPageNum()));
+        List<Product> pList = pDao.findProByName(bean, proName);
+        bean.setList(pList);
+        return bean;
+
+
+//        return pDao.findProByName(proName);
     }
 }
